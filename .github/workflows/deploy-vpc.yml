@@ -1,8 +1,7 @@
 name: Deploy VPC for EKS Cluster
 
 on:
-  push:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   terraform:
