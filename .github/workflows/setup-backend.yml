@@ -17,18 +17,18 @@ jobs:
           terraform_version: 1.9.5
 
       - name: Terraform Init
-        working-directory: terraform
+        working-directory: terraform-backend-setup
         run: terraform init
 
       - name: Terraform plan
-        working-directory: terraform
+        working-directory: terraform-backend-setup
         run: terraform plan -var-file="variables/dev.tfvars"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
       - name: Terraform Apply
-        working-directory: terraform
+        working-directory: terraform-backend-setup
         run: terraform apply -var-file="variables/dev.tfvars" -auto-approve
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
