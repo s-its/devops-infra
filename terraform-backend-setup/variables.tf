@@ -4,12 +4,6 @@ variable "aws_region" {
   default     = "ap-south-1"
 }
 
-variable "aws_profile" {
-  description = "aws cli profile"
-  type        = string
-  default     = "default"
-}
-
 variable "s3_bucket_name" {
   description = "S3 bucket name for storing Terraform state"
   type        = string
