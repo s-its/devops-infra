@@ -23,9 +23,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
-      - name: Terraform plan
+      - name: Terraform destroy
         working-directory: terraform-vpc
-        run: terraform destroy -var-file="variables/dev.tfvars"
+        run: terraform destroy -var-file="variables/dev.tfvars" -auto-approve
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
