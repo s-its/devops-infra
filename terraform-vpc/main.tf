@@ -1,5 +1,5 @@
 module "vpc" {
-  source    = "git::https://github.com/s-its/aws-vpc.git?ref=v1.0.3"
+  source    = "git::https://github.com/s-its/aws-vpc.git?ref=v1.0.4"
   name      = var.vpc_name
   ipv4_cidr = var.ipv4_cidr
 
