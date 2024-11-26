@@ -15,3 +15,5 @@ node_group = {
   disk_size      = 30
   instance_types = ["t3.medium"]
 }
+
+enable_monitoring = false

@@ -12,6 +12,8 @@ node_group = {
   min_node       = 1
   ami_type       = "CUSTOM"
   capacity_type  = "SPOT" # allowed value is "SPOT" and "ON_DEMAND"
-  disk_size      = 30
+  disk_size      = 100
   instance_types = ["t3.medium"]
 }
+
+enable_monitoring = false

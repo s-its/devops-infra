@@ -1,0 +1,7 @@
+alertmanager:
+  persistence:
+    storageClass: "gp2"
+
+server:
+  persistentVolume:
+    storageClass: "gp2"
