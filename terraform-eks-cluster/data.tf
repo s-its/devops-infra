@@ -12,9 +12,11 @@ data "aws_vpc" "eks_vpc" {
 }
 
 data "aws_eks_cluster" "main" {
+  depends_on = [module.eks.eks_cluster]
   name = module.eks.eks_cluster.name
 }
 
 data "aws_eks_cluster_auth" "main" {
+  depends_on = [module.eks.eks_cluster]
   name = module.eks.eks_cluster.name
 }
