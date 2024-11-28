@@ -16,4 +16,4 @@ node_group = {
   instance_types = ["t3.medium"]
 }
 
-enable_monitoring = false
+enable_monitoring = true
