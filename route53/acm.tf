@@ -13,7 +13,7 @@ resource "aws_acm_certificate" "ssl" {
   }
 }
 
-resource "aws_route53_record" "acm_validation" {
+/*resource "aws_route53_record" "acm_validation" {
   for_each = {
     for dvo in aws_acm_certificate.ssl.domain_validation_options : dvo.domain_name => dvo
   }
@@ -27,9 +27,9 @@ resource "aws_route53_record" "acm_validation" {
   lifecycle {
     create_before_destroy = true
   }
-}
+}*/
 
-resource "aws_acm_certificate_validation" "ssl_validation" {
+/*resource "aws_acm_certificate_validation" "ssl_validation" {
   certificate_arn         = aws_acm_certificate.ssl.arn
   validation_record_fqdns = [for record in aws_route53_record.acm_validation : record.fqdn]
-}
+}*/
