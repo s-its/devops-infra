@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket         = "devops-anil-terraform-backends"
     dynamodb_table = "state-lock"
-    key            = "global/terraform/eks-route53/ap-south-1/state/terraform.tfstate"
+    key            = "global/terraform/eks-monitoring/ap-south-1/state/terraform.tfstate"
     region         = "ap-south-1"
     encrypt        = true
   }
