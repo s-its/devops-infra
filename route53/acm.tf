@@ -15,18 +15,18 @@ resource "aws_acm_certificate" "ssl" {
 
 resource "aws_route53_record" "acm_validation" {
   for_each = {
-    for dvo in aws_acm_certificate.ssl.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      type   = dvo.resource_record_type
-      record = dvo.resource_record_value
-    }
+    for dvo in aws_acm_certificate.ssl.domain_validation_options : dvo.domain_name => dvo
   }
 
-  name    = each.value.name
-  type    = each.value.type
+  name    = each.value.resource_record_name
+  type    = each.value.resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
-  records = [each.value.record]
-  ttl     = 60
+  records = [each.value.resource_record_value]
+  ttl     = 300
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_acm_certificate_validation" "ssl_validation" {
