@@ -9,13 +9,4 @@ module "eks" {
   node_group        = var.node_group
 }
 
-data "aws_subnets" "private_subnets" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.eks_vpc.id]
-  }
-  filter {
-    name   = "tag:Name"
-    values = ["*private*"]
-  }
-}
+

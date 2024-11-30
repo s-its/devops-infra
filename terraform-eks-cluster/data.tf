@@ -4,6 +4,17 @@ data "aws_subnet" "private_subnet" {
   id       = each.value
 }
 
+data "aws_subnets" "private_subnets" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.eks_vpc.id]
+  }
+  filter {
+    name   = "tag:Name"
+    values = ["*private*"]
+  }
+}
+
 data "aws_vpc" "eks_vpc" {
   filter {
     name  = "tag:ManagedBy"
