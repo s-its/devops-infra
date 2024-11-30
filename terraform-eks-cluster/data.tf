@@ -17,17 +17,17 @@ data "aws_subnets" "private_subnets" {
 
 data "aws_vpc" "eks_vpc" {
   filter {
-    name  = "tag:ManagedBy"
+    name   = "tag:ManagedBy"
     values = ["DevOps"]
   }
 }
 
 data "aws_eks_cluster" "main" {
   depends_on = [module.eks.eks_cluster]
-  name = module.eks.eks_cluster.name
+  name       = module.eks.eks_cluster.name
 }
 
 data "aws_eks_cluster_auth" "main" {
   depends_on = [module.eks.eks_cluster]
-  name = module.eks.eks_cluster.name
+  name       = module.eks.eks_cluster.name
 }

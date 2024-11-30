@@ -8,8 +8,8 @@ resource "helm_release" "istio_base" {
 }
 
 resource "helm_release" "istio_discovery" {
-  name      = "istiod"
-  namespace = "istio-system"
+  name       = "istiod"
+  namespace  = "istio-system"
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "istiod"
 
@@ -17,8 +17,8 @@ resource "helm_release" "istio_discovery" {
 }
 
 resource "helm_release" "istio_ingress" {
-  name      = "istio-ingressgateway"
-  namespace = "istio-system"
+  name       = "istio-ingressgateway"
+  namespace  = "istio-system"
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "gateway"
 

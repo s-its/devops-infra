@@ -23,7 +23,7 @@ variable "domain_name" {
 variable "applications" {
   description = "Map of applications to subdomains"
   type        = map(string)
-  default     = {
+  default = {
     grafana = "grafana"
     app1    = "app1"
   }

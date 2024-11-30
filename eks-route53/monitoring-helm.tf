@@ -12,9 +12,9 @@ resource "helm_release" "prometheus" {
 }
 
 resource "helm_release" "grafana" {
-  name       = "grafana"
-  chart      = "grafana"
-  repository = "https://grafana.github.io/helm-charts"
-  namespace  = "monitoring"
+  name             = "grafana"
+  chart            = "grafana"
+  repository       = "https://grafana.github.io/helm-charts"
+  namespace        = "monitoring"
   create_namespace = false
 }

@@ -1,6 +1,6 @@
 data "aws_vpc" "eks_vpc" {
   filter {
-    name  = "tag:ManagedBy"
+    name   = "tag:ManagedBy"
     values = ["DevOps"]
   }
 }
