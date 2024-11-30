@@ -88,22 +88,34 @@ resource "aws_route53_record" "app_records" {
 resource "kubernetes_manifest" "istio_service_entries" {
   for_each = var.applications
 
-  manifest = <<EOF
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: ${each.key}
-  namespace: istio-system
-spec:
-  hosts:
-    - "${each.value}.${var.domain_name}"
-  gateways:
-    - istio-ingressgateway
-  http:
-    - route:
-      - destination:
-          host: ${each.key}.${var.domain_name}
-          port:
-            number: 80
-EOF
+  manifest = {
+    apiVersion = "networking.istio.io/v1alpha3"
+    kind       = "VirtualService"
+    metadata = {
+      name      = each.key
+      namespace = "istio-system"
+    }
+    spec = {
+      hosts = [
+        "${each.value}.${var.domain_name}"
+      ]
+      gateways = [
+        "istio-ingressgateway"
+      ]
+      http = [
+        {
+          route = [
+            {
+              destination = {
+                host = each.key
+                port = {
+                  number = 80
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

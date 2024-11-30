@@ -1,10 +1,15 @@
-resource "helm_release" "calico" {
+resource "helm_release" "calico_operator" {
   name       = "calico"
-  namespace  = "calico"
-  repository = "https://projectcalico.docs.tigera.io/charts"
   chart      = "tigera-operator"
+  namespace  = "calico"
+  repository = "https://docs.tigera.io/calico/charts"
+  version    = "v3.26.0" # Update to the desired Calico version
 
   create_namespace = true
+  set {
+    name  = "installation.calicoNetwork.ipPools[0].cidr"
+    value = "192.168.0.0/16"
+  }
 }
 
 /*resource "kubernetes_manifest" "calico_cr" {
@@ -35,7 +40,7 @@ resource "helm_release" "calico" {
 }*/
 
 
-resource "kubernetes_manifest" "calico_cr" {
+/*resource "kubernetes_manifest" "calico_cr" {
   manifest   = yamldecode(file("./calico-cr.yaml"))
-}
+}*/
 
