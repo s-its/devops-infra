@@ -12,6 +12,7 @@ resource "helm_release" "prometheus" {
 }
 
 resource "helm_release" "grafana" {
+  depends_on = [helm_release.prometheus]
   name             = "grafana"
   chart            = "grafana"
   repository       = "https://grafana.github.io/helm-charts"
