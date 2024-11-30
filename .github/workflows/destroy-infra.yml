@@ -7,9 +7,65 @@ env:
 #  AWS_REGION: "us-east-1" # Change this to your desired AWS region
 
 jobs:
+  terraform-route53-destroy:
+    name: Destroy route53
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        working-directory: route53
+        run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+
+      - name: Terraform destroy
+        working-directory: route53
+        run: terraform destroy -var-file="variables/dev.tfvars" -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+
+  eks-monitoring-destroy:
+    name: Destroy EKS monitoring
+    runs-on: ubuntu-latest
+    needs: terraform-route53-destroy
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        working-directory: eks-monitoring
+        run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+
+      - name: Terraform destroy
+        working-directory: eks-monitoring
+        run: terraform destroy -var-file="variables/dev.tfvars" -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+
   terraform-eks-destroy:
     name: Destroy EKS
     runs-on: ubuntu-latest
+    needs: eks-monitoring-destroy
 
     steps:
       - name: Checkout code
