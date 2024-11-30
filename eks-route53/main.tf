@@ -86,6 +86,7 @@ resource "aws_route53_record" "app_records" {
 }
 
 resource "kubernetes_manifest" "istio_service_entries" {
+  depends_on = [helm_release.istio_ingress]
   for_each = var.applications
 
   manifest = {
