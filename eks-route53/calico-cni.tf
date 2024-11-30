@@ -1,5 +1,4 @@
 resource "helm_release" "calico" {
-  depends_on = [module.eks]
   name       = "calico"
   namespace  = "calico"
   repository = "https://projectcalico.docs.tigera.io/charts"
@@ -37,7 +36,6 @@ resource "helm_release" "calico" {
 
 
 resource "kubernetes_manifest" "calico_cr" {
-  depends_on = [module.eks]
   manifest   = yamldecode(file("./calico-cr.yaml"))
 }
 
