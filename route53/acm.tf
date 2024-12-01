@@ -1,9 +1,9 @@
 resource "aws_acm_certificate" "ssl" {
 
-  domain_name       = var.domain_name
+  domain_name       = "*.${var.domain_name}"
   validation_method = "DNS"
 
-  subject_alternative_names = [for subdomain_key, subdomain_value in var.applications : "${subdomain_value}.${var.domain_name}"]
+  subject_alternative_names = []
 
   lifecycle {
     create_before_destroy = true
